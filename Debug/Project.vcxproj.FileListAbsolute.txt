@@ -1,0 +1,4 @@
+D:\OSU\CS271\Week1\asmbook-main\asmbook-main\Project32_VS2022\Project32_VS2022\Debug\Project.exe
+D:\OSU\CS271\Week1\Assignment1\Project32_VS2022\Project32_VS2022\Debug\Project.exe
+D:\OSU\CS271\Week3\Assignment2\Project32_VS2022\Debug\Project.exe
+D:\OSU\CS271\Week6\Assignment3\Project32_VS2022\Debug\Project.exe

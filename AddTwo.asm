@@ -1,10 +1,8 @@
-; Authors: Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo 
+; Authors: Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo
 ; Course/project ID: CS 271
-; Date: 05/16/2023
-; Description: This program converts miles to kilometers and Fahrenheit to Celsius. It will first ask for the users name and then greet the user.
-;After that the program will propmt the user to enter the distance in miles that they want to convert adn then prompt them to enter 
-;the temperature that they want to convert in Fahrenheit. Then the program will display the converted values. Finally there is a closing
-;message and the program ends. 
+; Date: 5/16/2023
+; Description: This program asks the user for the number of composites to be displayed, and then calculates and displays all the composite numbers up to and including that number.
+;              The results are displayed 10 composites per line with at least 3 spaces between the numbers.
 
 
 INCLUDE Irvine32.inc

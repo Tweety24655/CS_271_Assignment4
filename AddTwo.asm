@@ -1,6 +1,6 @@
 ; Authors: Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo 
 ; Course/project ID: CS 271
-; Date: 05/09/2023
+; Date: 05/16/2023
 ; Description: This program converts miles to kilometers and Fahrenheit to Celsius. It will first ask for the users name and then greet the user.
 ;After that the program will propmt the user to enter the distance in miles that they want to convert adn then prompt them to enter 
 ;the temperature that they want to convert in Fahrenheit. Then the program will display the converted values. Finally there is a closing
@@ -22,17 +22,6 @@ ExitProcess proto,dwExitCode:dword
 	hiName BYTE "Hi ",0																																	;hi+name
 	byeName BYTE "Bye ",0																																;bye+name
 	uName BYTE	15 DUP(0)																																;Name
-	kmConverter REAL10 1.60934																															;Constant for km. conversion
-	celsiusSubtractionConverter REAL10 32.0																												;Constant for celsius subtraction
-	celsiusDivisionConverter REAL10 1.8																													;Constant for celsius division
-	displayMiles1 BYTE "The conversion of ",0																											;Display Miles1
-	displayMiles2 BYTE " miles in kilometers is: ",0																									;Display Miles2				
-	displayCelsius1 BYTE "The conversion of ",0																											;Display Celsius1
-	displayCelsius2 BYTE " degrees Fahrenheit in Celsius is: ",0																						;Display Celsius2
-	var1 REAL10 ?																																		;Variable1
-	var2 REAL10 ?																																		;Variable2
-	resultDistance REAL10 ?																																;Result Distance
-	resultTemperature REAL10 ?																															;Result Temperature
 	endMessage BYTE "Results certified by Leonardo Pisano.",0																							;end message
 	
 

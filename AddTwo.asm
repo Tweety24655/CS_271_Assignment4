@@ -15,96 +15,24 @@ INCLUDE Irvine32.inc
 ExitProcess proto,dwExitCode:dword
 
 .data				;DS register
-	intro BYTE "Distance & Temperature Unit Conversion Programmed by Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo and Leonardo Pisano",0		;Introduction set 1
-	askName BYTE	"What is your name?: ",0																											;Ask for name 
-	askDistance BYTE "Enter the distance in miles that you want to convert to kilometers:",0															;Ask for distance in km.
-	askTemp BYTE "Now enter the temperature in Fahrenheit that you want to convert to Celsius:",0														;Ask for temperature in celsius.
-	hiName BYTE "Hi ",0																																	;hi+name
-	byeName BYTE "Bye ",0																																;bye+name
-	uName BYTE	15 DUP(0)																																;Name
-	endMessage BYTE "Results certified by Leonardo Pisano.",0																							;end message
+	intro1 BYTE "Composite Numbers Programmed by Euclid by Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo and Euclid",0							;Introduction set1
+	intro2 BYTE "Enter the number of composite numbers you would like to see. I’ll accept orders for up to 400 composites.",0							;Introduction set2
+	endMessage BYTE "Results certified by Euclid. Goodbye.",0																							;end message
 	
 
 .code				;CS register
 main proc
 
 	Start:
-		FINIT
 		;Introduction
-		mov	EDX, OFFSET intro				
+		mov	EDX, OFFSET intro1				
+		call WriteString
+		call Crlf
+		call Crlf
+		mov	EDX, OFFSET intro2				
 		call WriteString
 		call Crlf
 
-	QuestionName: 
-		mov	EDX, OFFSET askName
-		call WriteString
-
-	ReceiveName:
-		mov EDX, OFFSET uName
-		mov ECX, 15
-		call ReadString
-
-	;Hi+name
-	Greetings:
-		mov	EDX, OFFSET hiName
-		call WriteString
-
-		mov	EDX, OFFSET uName
-		call WriteString
-		call Crlf
-
-	;Ask for Distance
-		mov	EDX, OFFSET askDistance
-		call WriteString
-
-	;Receive Distance
-		call ReadFloat
-		fstp var1
-
-	;Ask for Temperature
-		mov	EDX, OFFSET askTemp
-		call WriteString
-
-	;Receive Temperature
-		call ReadFloat
-		FSTP var2
-
-	;Calculate kilometer
-		FLD var1
-		FLD kmConverter
-		FMUL
-		FSTP resultDistance
-
-	;Calculate Celsius
-		FLD var2
-		FLD celsiusSubtractionConverter
-		FSUB
-		FLD celsiusDivisionConverter
-		FDIV
-		FSTP resultTemperature
-
-	;Display Miles
-		mov	EDX, OFFSET displayMiles1
-		call WriteString
-		FLD	var1
-		call WriteFLoat
-		FSTP var1
-		mov	EDX, OFFSET displayMiles2
-		call WriteString
-		FLD resultDistance
-		call WriteFloat
-		call Crlf
-
-	;Display Temperture
-		mov	EDX, OFFSET displayCelsius1
-		call WriteString
-		FLD	var2
-		call WriteFLoat
-		FSTP var1
-		mov	EDX, OFFSET displayCelsius2
-		call WriteString
-		FLD resultTemperature
-		call WriteFloat
 
 	ExitSequence:
 		call Crlf

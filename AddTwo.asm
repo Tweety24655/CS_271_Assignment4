@@ -46,4 +46,4 @@ introduction proc
 		mov	EDX, OFFSET intro2				
 		call WriteString
 		call Crlf
-end introduction
+introduction endp

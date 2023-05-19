@@ -18,7 +18,9 @@ ExitProcess proto,dwExitCode:dword
 	Ask BYTE "Enter the number of composites to display [1 .. 400]: ",0																			;Ask for input
 	endMessage BYTE "Results certified by Euclid. Goodbye.",0																					;end message
 	errorMessage  BYTE "Out of range.",0																										;error message
+	comma BYTE ",",0																															;comma
 	numterm DD ?																																;Number of term
+	num db ?																																	; Number to check for compositeness
 	boolean DD ?																																;Boolean
 
 .code				;CS register
@@ -82,12 +84,49 @@ Validate proc
 		ret
 Validate endp
 
+showComposites proc
+	;Set default value
+	mov ESI,0
+	
+	;Start Macro Loop
+	StartLoop:
+
+		;insert code here
+		mov EAX, 3
+		call WriteDec
+		mov EDX, OFFSET comma
+		call WriteString
+
+		;mod with 5
+		mov	EAX, ESI
+		inc EAX
+		mov	EBX, 10
+		cdq
+		div EBX
+		cmp EDX,0
+		je NewLine
+		jne EndMacroLoop
+
+		NewLine:
+			call Crlf
+		
+	EndMacroLoop:
+		inc ESI
+		mov EDI, numterm
+		cmp ESI, EDI
+		jne StartLoop
+
+		ret
+
+
+showComposites endp
 
 main proc
 
 	Start:
 		call introduction
 		call Askfortheterm
+		call showComposites
 
 
 	ExitSequence:

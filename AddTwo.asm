@@ -18,10 +18,18 @@ ExitProcess proto,dwExitCode:dword
 	Ask BYTE "Enter the number of composites to display [1 .. 400]: ",0																			;Ask for input
 	endMessage BYTE "Results certified by Euclid. Goodbye.",0																					;end message
 	errorMessage  BYTE "Out of range.",0																										;error message
-	comma BYTE ",",0																															;comma
+	space BYTE "   ",0																															;space
 	numterm DD ?																																;Number of term
 	num db ?																																	; Number to check for compositeness
 	boolean DD ?																																;Boolean
+	numStart DD 4																																;composite number to be display
+	counter DD 0																																;count until terminate
+	numCol DD 0																																	;Number of column
+	compositeBoolean DD ?																														;T/F for composite
+	mod2 DD 2
+	mod3 DD 3
+	mod5 DD 5
+	mod7 DD 7
 
 .code				;CS register
 
@@ -85,41 +93,123 @@ Validate proc
 Validate endp
 
 showComposites proc
-	;Set default value
-	mov ESI,0
 	
+	call Crlf
+
 	;Start Macro Loop
 	StartLoop:
 
 		;insert code here
-		mov EAX, 3
-		call WriteDec
-		mov EDX, OFFSET comma
-		call WriteString
+		;Composite Boolean
+		call isComposite
+		cmp compositeBoolean,1
+		jne NotRegular
 
-		;mod with 5
-		mov	EAX, ESI
-		inc EAX
-		mov	EBX, 10
-		cdq
-		div EBX
-		cmp EDX,0
-		je NewLine
-		jne EndMacroLoop
+		Regular:
+			mov EAX, numStart
+			call WriteDec
+			mov EDX, OFFSET space
+			call WriteString
+			inc numStart
 
+			;increase column and terminator counter
+			inc numCol
+			inc counter
+			jmp continue
+
+		NotRegular:
+			inc numStart
+		
+		continue:
+			;Check whether the program should end or not
+			mov EDI, counter
+			mov ECX, numterm
+			cmp EDI, ECX
+			je EndMacroLoop
+		
+			;check whether we need a new line or not
+			cmp numCol, 10
+			je NewLine
+			jne StartLoop
+
+		;Create new line
 		NewLine:
 			call Crlf
+			mov numCol,0
+			jmp StartLoop
 		
 	EndMacroLoop:
-		inc ESI
-		mov EDI, numterm
-		cmp ESI, EDI
-		jne StartLoop
 
 		ret
 
 
 showComposites endp
+
+isComposite PROC
+	;insert code here
+	
+	;check 5,7
+	mov EAX,numStart
+	mov EBX, 5
+	cmp EAX,EBX
+	je notcomposite
+	mov EBX, 7
+	cmp EAX,EBX
+	je notcomposite
+
+
+
+
+	;check2
+	mov EAX,numStart
+	mov EBX, mod2
+	cdq
+	div EBX
+	cmp EDX,0
+	je composite
+	
+	;check3
+	mov EAX,numStart
+	mov EBX, mod3
+	cdq
+	div EBX
+	cmp EDX,0
+	je composite
+	
+	;check5
+	mov EAX,numStart
+	mov EBX, mod5
+	cdq
+	div EBX
+	cmp EDX,0
+	je composite
+
+	;check7
+	mov EAX,numStart
+	mov EBX, mod7
+	cdq
+	div EBX
+	cmp EDX,0
+	je composite
+
+	;notcomposite
+	jmp notComposite
+
+
+
+	composite:
+		mov compositeBoolean,1
+		jmp endCheck
+
+	notComposite:
+		mov compositeBoolean,0
+
+
+	endCheck:
+	ret
+
+
+isComposite ENDP
 
 main proc
 
@@ -130,6 +220,7 @@ main proc
 
 
 	ExitSequence:
+		call Crlf
 		call Crlf
 		mov	EDX, OFFSET endMessage
 		call WriteString

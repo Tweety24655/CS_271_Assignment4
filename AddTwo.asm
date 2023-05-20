@@ -15,7 +15,9 @@ ExitProcess proto,dwExitCode:dword
 .data				;DS register
 	intro1 BYTE "Composite Numbers Programmed by Tichakorn(Tweety) Taekratok, Kunal Chopra, Hsun-Yu Kuo and Euclid",0							;Introduction set1
 	intro2 BYTE "Enter the number of composite numbers you would like to see. I will accept orders for up to 400 composites.",0					;Introduction set2
-	Ask BYTE "Enter the number of composites to display [1 .. 400]: ",0																			;Ask for input
+	Ask BYTE "Enter the number of composites to display [1 .. 400]: ",0		
+	ecMessage3  BYTE "**EC #3: DESCRIPTION: Check against only prime divisors.",0															;Extra Credit Message1
+	ecMessage3_1 BYTE "The program efficiently checks for prime divisors by saving all prime numbers found so far, improving the overall execution time and resource usage.",0		;Extra Credit Message1.1																
 	endMessage BYTE "Results certified by Euclid. Goodbye.",0																					;end message
 	errorMessage  BYTE "Out of range.",0																										;error message
 	space BYTE "   ",0																															;space
@@ -42,6 +44,15 @@ introduction proc
 		mov	EDX, OFFSET intro2				
 		call WriteString
 		call Crlf
+		call Crlf
+
+		;ExtraCredit3
+		mov	EDX, OFFSET ecMessage3			
+		call WriteString
+		call Crlf
+
+		mov	EDX, OFFSET ecMessage3_1				
+		call WriteString
 		call Crlf
 
 		ret
